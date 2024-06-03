@@ -309,7 +309,7 @@ sub test_sign : Tests() {
     return;
 }
 
-sub test_sign_deterministic : Tests(1) {
+sub test_sign_hash : Tests(1) {
     my $key_pem = <<END;
 -----BEGIN EC PRIVATE KEY-----
 MIHcAgEBBEIAv28oIsE2drCHfA3Jhkhc/kjsm2VcZywFpFAM1QuH/KmOu3iucI2r
@@ -321,12 +321,12 @@ X75cA6vjBy2iqZZDGCTCpB0qs8hakzocogUboszkzw==
 END
 
     my $key = Crypt::Perl::ECDSA::Parse::private($key_pem);
-    my $msg = 'Deterministic signature test';
+    my $msg = 'Deterministic signature of a hash test';
 
     my $dgst = Digest::SHA::sha1($msg);
 
     my $sig1 = $key->sign_sha1($msg);
-    my $sig2 = $key->sign_deterministic($dgst, 'sha1');
+    my $sig2 = $key->sign_hash($dgst, 'sha1');
 
     ok $sig1 eq $sig2, 'deterministic signatures match';
 

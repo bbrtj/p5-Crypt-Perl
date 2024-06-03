@@ -140,7 +140,7 @@ sub sign {
     return $_[0]->_sign_and_serialize($_[1]);
 }
 
-sub sign_deterministic {
+sub sign_hash {
     my ($self, $whatsit, $det_hashfuncname) = @_;
 
     return $self->_sign_and_serialize($whatsit, $det_hashfuncname);
